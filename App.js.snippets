@@ -1,0 +1,44 @@
+Amplify.configure({
+ Auth: {
+     userPoolId: '',
+     userPoolWebClientId: '',     
+     identityPoolId: '',
+     region: 'us-west-2',
+ },
+ API: {
+     endpoints: [
+         {
+             name: "TodoAPI",
+             endpoint: "",
+             custom_header: async () => {
+                return { Authorization: (await Auth.currentSession()).idToken.jwtToken }
+             }
+         }
+       ]
+     }
+   }
+);
+
+
+
+------
+
+
+<div className="App">
+       <header className="App-header">
+         <img src={logo} className="App-logo" alt="logo" />
+         <p>
+           TODOS:
+         </p>
+         <table>
+     <tbody>{this.state.todos.map(function(item, key) {
+              return (
+                 <tr key = {key}>
+                     <td>{item.item}</td>
+                 </tr>
+               )
+
+            })}</tbody>
+      </table>
+       </header>
+     </div>
